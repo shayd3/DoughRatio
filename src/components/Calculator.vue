@@ -26,17 +26,17 @@ const leavenPercentage = ref(20)
     </div>
 
     <div>
-      <label for="horizontal-buttons" class="font-bold block mb-2"> Water </label>
+      <label for="waterPercentage" class="font-bold block mb-2"> Water </label>
       <InputNumber v-model="waterPercentage" inputId="waterPercentage" suffix="%" :min="0" :use-grouping="false">
       </InputNumber>
     </div>
     <div>
-      <label for="horizontal-buttons" class="font-bold block mb-2"> Salt </label>
+      <label for="saltPercentage" class="font-bold block mb-2"> Salt </label>
       <InputNumber v-model="saltPercentage" inputId="saltPercentage" suffix="%" :min="0" :use-grouping="false">
       </InputNumber>
     </div>
     <div>
-      <label for="horizontal-buttons" class="font-bold block mb-2"> Leaven </label>
+      <label for="leavenPercentage" class="font-bold block mb-2"> Leaven </label>
       <InputNumber v-model="leavenPercentage" inputId="leavenPercentage" suffix="%" :min="0" :use-grouping="false">
       </InputNumber>
     </div>
