@@ -11,7 +11,7 @@ const leavenPercentage = ref(20)
 
 <template>
   <h1>Bakers Calculator</h1>
-  <div class="flex flex-column gap-5">
+  <div class="flex flex-column gap-3">
     <div>
       <label for="horizontal-buttons" class="font-bold block mb-2"> Flour </label>
       <InputNumber v-model="flourWeight" inputId="horizontal-buttons" showButtons buttonLayout="horizontal" :step="250"
