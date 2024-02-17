@@ -3,6 +3,7 @@ import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 
 import './style.css'
+import 'primevue/resources/themes/aura-dark-cyan/theme.css'
 import 'primeflex/primeflex.css'
 import 'primeicons/primeicons.css'
 
