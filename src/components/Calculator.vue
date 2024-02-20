@@ -15,11 +15,16 @@ const waterPercentage = ref(75)
 const saltPercentage = ref(2)
 const leavenPercentage = ref(20)
 
-watch([flourWeight, waterPercentage, saltPercentage, leavenPercentage], () => {
-  calculate();
+let percentWatchList  = [flourWeight, waterPercentage, saltPercentage, leavenPercentage]
+let weightWatchList = [flourWeight, waterWeight, saltWeight, leavenWeight]
+
+watch(percentWatchList, () => {
+  waterWeight.value = calculateWeight(waterPercentage.value);
+  saltWeight.value = calculateWeight(saltPercentage.value);
+  leavenWeight.value = calculateWeight(leavenPercentage.value);
 })
 
-watch([flourWeight, waterWeight, saltWeight, leavenWeight], () => {
+watch(weightWatchList, () => {
   waterPercentage.value = calculatePercentage(waterWeight.value);
   saltPercentage.value = calculatePercentage(saltWeight.value);
   leavenPercentage.value = calculatePercentage(leavenWeight.value);
@@ -31,12 +36,6 @@ const calculateWeight = (percentage: number) => {
 
 const calculatePercentage = (weight: number) => {
   return (weight / flourWeight.value) * 100;
-}
-
-const calculate = () => {
-  waterWeight.value = calculateWeight(waterPercentage.value);
-  saltWeight.value = calculateWeight(saltPercentage.value);
-  leavenWeight.value = calculateWeight(leavenPercentage.value);
 }
 
 </script>
