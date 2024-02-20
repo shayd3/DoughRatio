@@ -15,45 +15,28 @@ const waterPercentage = ref(75)
 const saltPercentage = ref(2)
 const leavenPercentage = ref(20)
 
-// watch if any of the values change
 watch([flourWeight, waterPercentage, saltPercentage, leavenPercentage], () => {
   calculate();
 })
 
 watch([flourWeight, waterWeight, saltWeight, leavenWeight], () => {
-  waterPercentage.value = calculateWaterPercentage(flourWeight.value, waterWeight.value);
-  saltPercentage.value = calculateSaltPercentage(flourWeight.value, saltWeight.value);
-  leavenPercentage.value = calculateLeavenPercentage(flourWeight.value, leavenWeight.value);
+  waterPercentage.value = calculatePercentage(waterWeight.value);
+  saltPercentage.value = calculatePercentage(saltWeight.value);
+  leavenPercentage.value = calculatePercentage(leavenWeight.value);
 })
 
-const calculateWaterWeight = (flourWeight: number, waterPercentage: number) => {
-  return (flourWeight * waterPercentage) / 100;
+const calculateWeight = (percentage: number) => {
+  return (flourWeight.value * percentage) / 100;
 }
 
-const calculateSaltWeight = (flourWeight: number, saltPercentage: number) => {
-  return (flourWeight * saltPercentage) / 100;
-}
-
-const calculateLeavenWeight = (flourWeight: number, leavenPercentage: number) => {
-  return (flourWeight * leavenPercentage) / 100;
-}
-
-const calculateWaterPercentage = (flourWeight: number, waterWeight: number) => {
-  return (waterWeight / flourWeight) * 100;
-}
-
-const calculateSaltPercentage = (flourWeight: number, saltWeight: number) => {
-  return (saltWeight / flourWeight) * 100;
-}
-
-const calculateLeavenPercentage = (flourWeight: number, leavenWeight: number) => {
-  return (leavenWeight / flourWeight) * 100;
+const calculatePercentage = (weight: number) => {
+  return (weight / flourWeight.value) * 100;
 }
 
 const calculate = () => {
-  waterWeight.value = calculateWaterWeight(flourWeight.value, waterPercentage.value);
-  saltWeight.value = calculateSaltWeight(flourWeight.value, saltPercentage.value);
-  leavenWeight.value = calculateLeavenWeight(flourWeight.value, leavenPercentage.value);
+  waterWeight.value = calculateWeight(waterPercentage.value);
+  saltWeight.value = calculateWeight(saltPercentage.value);
+  leavenWeight.value = calculateWeight(leavenPercentage.value);
 }
 
 </script>
