@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputNumber from 'primevue/inputnumber';
 
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const percentSuffix = " %";
 const gramsSuffix = " g";
@@ -14,6 +14,30 @@ const leavenWeight = ref(200)
 const waterPercentage = ref(75)
 const saltPercentage = ref(2)
 const leavenPercentage = ref(20)
+
+// watch if any of the values change
+watch([flourWeight, waterPercentage, saltPercentage, leavenPercentage], () => {
+  calculate();
+})
+
+const calculateWaterWeight = (flourWeight: number, waterPercentage: number) => {
+  return (flourWeight * waterPercentage) / 100;
+}
+
+const calculateSaltWeight = (flourWeight: number, saltPercentage: number) => {
+  return (flourWeight * saltPercentage) / 100;
+}
+
+const calculateLeavenWeight = (flourWeight: number, leavenPercentage: number) => {
+  return (flourWeight * leavenPercentage) / 100;
+}
+
+const calculate = () => {
+  waterWeight.value = calculateWaterWeight(flourWeight.value, waterPercentage.value);
+  saltWeight.value = calculateSaltWeight(flourWeight.value, saltPercentage.value);
+  leavenWeight.value = calculateLeavenWeight(flourWeight.value, leavenPercentage.value);
+}
+
 </script>
 
 <template>
