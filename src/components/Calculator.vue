@@ -8,9 +8,7 @@ const gramsSuffix = " g";
 
 const flour = {
   name: "flour",
-  weight: ref(1000),
-  percentage: ref(100)
-
+  weight: ref(1000)
 }
 const ingredients = ([
   { name: "water", weight: ref(750), percentage: ref(75) },
@@ -18,19 +16,21 @@ const ingredients = ([
   { name: "leaven", weight: ref(200), percentage: ref(20)}
 ])
 
-const percentWatchList = ingredients.map(ingredient => ingredient.percentage)
+// TODO: May need to `watch` when new ingredients are added to recalculate the watch lists
+const percentWatchList = ingredients.map(ingredient => ingredient.percentage);
+percentWatchList.push(flour.weight)
 const weightWatchList = ingredients.map(ingredient => ingredient.weight)
 
-watch(percentWatchList, (newValues, oldValues) => {
-  console.log("Percentage Watch", newValues, oldValues)
+watch(percentWatchList, () => {
+  console.log("Percentage changed or flour weight changed")
   // Calculate the weight of the ingredient
   ingredients.forEach(ingredient => {
     ingredient.weight.value = calculateWeight(ingredient.percentage.value)
   })
 })
 
-watch(weightWatchList, (newValues, oldValues) => {
-  console.log("Weight Watch", newValues, oldValues)
+watch(weightWatchList, () => {
+  console.log("Weight changed")
   // Calculate the percentage of the ingredient
   ingredients.forEach(ingredient => {
     ingredient.percentage.value = calculatePercentage(ingredient.weight.value)
