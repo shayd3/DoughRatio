@@ -7,6 +7,10 @@ const percentSuffix = " %";
 const gramsSuffix = " g";
 
 const flourWeight = ref(1000)
+const waterWeight = ref(750)
+const saltWeight = ref(20)
+const leavenWeight = ref(200)
+
 const waterPercentage = ref(75)
 const saltPercentage = ref(2)
 const leavenPercentage = ref(20)
@@ -15,8 +19,8 @@ const leavenPercentage = ref(20)
 <template>
   <h1>Bakers Calculator</h1>
   <div class="flex flex-column gap-3">
-    <div>
-        <label for="flourWeight" class="font-bold block mb-2"> Flour </label>
+    <label for="flour" class="font-bold block"> Flour </label>
+    <div id="flour">
         <InputNumber v-model="flourWeight" inputId="flourWeight" :suffix="gramsSuffix" showButtons buttonLayout="horizontal" :step="250"
           :use-grouping="false">
           <template #incrementbuttonicon>
@@ -28,22 +32,37 @@ const leavenPercentage = ref(20)
         </InputNumber>
     </div>
 
-    <div>
-      <label for="waterPercentage" class="font-bold block mb-2"> Water </label>
-      <InputNumber v-model="waterPercentage" inputId="waterPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false">
-      </InputNumber>
+    <label for="water" class="font-bold block"> Water </label>
+    <div id="water" class="flex flex-row gap-3">
+      <div>
+        <InputNumber v-model="waterPercentage" inputId="waterPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false">
+        </InputNumber>
+      </div>
+      <div>
+        <InputNumber v-model="waterWeight" inputId="waterWeight" :suffix="gramsSuffix" :min="0" :use-grouping="false"></InputNumber>
+      </div>
+    </div>
 
+    <label for="salt" class="font-bold block mb-2"> Salt </label>
+    <div id="salt" class="flex flex-row gap-3">
+      <div>
+        <InputNumber v-model="saltPercentage" inputId="saltPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false"></InputNumber>
+      </div>
+      <div>
+        <InputNumber v-model="saltWeight" inputId="saltWeight" :suffix="gramsSuffix" :min="0" :use-grouping="false"></InputNumber>
+      </div>
     </div>
-    <div>
-      <label for="saltPercentage" class="font-bold block mb-2"> Salt </label>
-      <InputNumber v-model="saltPercentage" inputId="saltPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false">
-      </InputNumber>
+
+    <label for="leaven" class="font-bold block mb-2"> Leaven </label>
+    <div id="leaven" class="flex flex-row gap-3">
+      <div>
+        <InputNumber v-model="leavenPercentage" inputId="leavenPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false"></InputNumber>
+      </div>
+      <div>
+        <InputNumber v-model="leavenWeight" inputId="leavenWeight" :suffix="gramsSuffix" :min="0" :use-grouping="false"></InputNumber>
+      </div>
     </div>
-    <div>
-      <label for="leavenPercentage" class="font-bold block mb-2"> Leaven </label>
-      <InputNumber v-model="leavenPercentage" inputId="leavenPercentage" :suffix="percentSuffix" :min="0" :use-grouping="false">
-      </InputNumber>
-    </div>
+
   </div>
 </template>
 
