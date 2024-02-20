@@ -20,6 +20,12 @@ watch([flourWeight, waterPercentage, saltPercentage, leavenPercentage], () => {
   calculate();
 })
 
+watch([flourWeight, waterWeight, saltWeight, leavenWeight], () => {
+  waterPercentage.value = calculateWaterPercentage(flourWeight.value, waterWeight.value);
+  saltPercentage.value = calculateSaltPercentage(flourWeight.value, saltWeight.value);
+  leavenPercentage.value = calculateLeavenPercentage(flourWeight.value, leavenWeight.value);
+})
+
 const calculateWaterWeight = (flourWeight: number, waterPercentage: number) => {
   return (flourWeight * waterPercentage) / 100;
 }
@@ -30,6 +36,18 @@ const calculateSaltWeight = (flourWeight: number, saltPercentage: number) => {
 
 const calculateLeavenWeight = (flourWeight: number, leavenPercentage: number) => {
   return (flourWeight * leavenPercentage) / 100;
+}
+
+const calculateWaterPercentage = (flourWeight: number, waterWeight: number) => {
+  return (waterWeight / flourWeight) * 100;
+}
+
+const calculateSaltPercentage = (flourWeight: number, saltWeight: number) => {
+  return (saltWeight / flourWeight) * 100;
+}
+
+const calculateLeavenPercentage = (flourWeight: number, leavenWeight: number) => {
+  return (leavenWeight / flourWeight) * 100;
 }
 
 const calculate = () => {
