@@ -48,7 +48,6 @@ const calculatePercentage = (weight: number) => {
 </script>
 
 <template>
-  <h1>Bakers Calculator</h1>
   <div class="flex flex-column gap-3">
     <label for="flour" class="font-bold block"> Flour </label>
     <div id="flour">
