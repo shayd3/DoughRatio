@@ -18,23 +18,23 @@ const flour = {
 }
 
 const ingredients = [
-  { name: "water", weight: ref(750), percentage: ref(75), checked: ref(true)},
-  { name: "salt", weight: ref(20), percentage: ref(2), checked: ref(true)},
-  { name: "leaven", weight: ref(200), percentage: ref(20), checked: ref(true)},
-  { name: "yeast", weight: ref(10), percentage: ref(1), checked: ref(true)},
-  { name: "butter", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "starter", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "poolish", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "malt", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "sugar", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "milk", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "eggs", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "honey", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "vanilla", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "cinnamon", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "baking powder", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "baking soda", weight: ref(0), percentage: ref(0), checked: ref(false)},
-  { name: "oil", weight: ref(0), percentage: ref(0), checked: ref(false)}
+  { name: "Water", weight: ref(750), percentage: ref(75), checked: ref(true)},
+  { name: "Salt", weight: ref(20), percentage: ref(2), checked: ref(true)},
+  { name: "Leaven", weight: ref(200), percentage: ref(20), checked: ref(true)},
+  { name: "Yeast", weight: ref(10), percentage: ref(1), checked: ref(true)},
+  { name: "Butter", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Starter", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Poolish", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Malt", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Sugar", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Milk", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Eggs", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Honey", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Vanilla", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Cinnamon", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Baking Powder", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Baking Soda", weight: ref(0), percentage: ref(0), checked: ref(false)},
+  { name: "Oil", weight: ref(0), percentage: ref(0), checked: ref(false)}
 ].sort((a, b) => a.name.localeCompare(b.name))
 
 const percentWatchList = ingredients.map(ingredient => ingredient.percentage);
