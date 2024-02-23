@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
+  <h1>Dough Ratio</h1>
   <RouterView />
 </template>
 
