@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import InputNumber from 'primevue/inputnumber';
 import Panel from 'primevue/panel';
+import OverlayPanel from 'primevue/overlaypanel';
+import Button from 'primevue/button';
+import Checkbox from 'primevue/checkbox';
 
 import { ref, watch } from "vue";
 
 const percentSuffix = " %";
 const gramsSuffix = " g";
 
+const AddRemoveIngredientsPanel = ref()
+
 const flour = {
   name: "flour",
   weight: ref(1000)
 }
 
-const ingredients = ([
+const ingredients = [
   { name: "water", weight: ref(750), percentage: ref(75), checked: ref(true)},
   { name: "salt", weight: ref(20), percentage: ref(2), checked: ref(true)},
   { name: "leaven", weight: ref(200), percentage: ref(20), checked: ref(true)},
@@ -30,7 +35,7 @@ const ingredients = ([
   { name: "baking powder", weight: ref(0), percentage: ref(0), checked: ref(false)},
   { name: "baking soda", weight: ref(0), percentage: ref(0), checked: ref(false)},
   { name: "oil", weight: ref(0), percentage: ref(0), checked: ref(false)}
-])
+].sort((a, b) => a.name.localeCompare(b.name))
 
 const percentWatchList = ingredients.map(ingredient => ingredient.percentage);
 percentWatchList.push(flour.weight)
@@ -58,6 +63,10 @@ const calculateWeight = (percentage: number) => {
 
 const calculatePercentage = (weight: number) => {
   return (weight / flour.weight.value) * 100;
+}
+
+const toggleOp = (event: any) => {
+    AddRemoveIngredientsPanel.value.toggle(event);
 }
 
 </script>
@@ -91,6 +100,18 @@ const calculatePercentage = (weight: number) => {
         </div>
       </template>
     </template>
+
+    <Button @click="toggleOp($event)" label="Add/Remove Ingredients" />
+    <OverlayPanel ref="AddRemoveIngredientsPanel">
+      <div class="flex flex-column gap-3">
+        <template v-for="ingredient in ingredients" :key="ingredient.name">
+          <div class="flex flex-row gap-2">
+            <Checkbox v-model="ingredient.checked.value" :inputId="ingredient.name" :binary="true" :label="ingredient.name" />
+            <label :for="ingredient.name"> {{ ingredient.name }} </label>
+          </div>
+        </template>
+      </div>
+    </OverlayPanel>
 
   </div>
   </Panel>
