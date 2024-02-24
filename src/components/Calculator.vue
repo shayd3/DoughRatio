@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import InputNumber from 'primevue/inputnumber';
 import Panel from 'primevue/panel';
-import OverlayPanel from 'primevue/overlaypanel';
 import Button from 'primevue/button';
 import Checkbox from 'primevue/checkbox';
+import Dialog from 'primevue/dialog';
+
 
 import { ref, watch } from "vue";
 
 const percentSuffix = " %";
 const gramsSuffix = " g";
 
-const AddRemoveIngredientsPanel = ref()
+const ingredientDialogVisible = ref(false);
 
 const flour = {
   name: "flour",
@@ -65,9 +66,6 @@ const calculatePercentage = (weight: number) => {
   return (weight / flour.weight.value) * 100;
 }
 
-const toggleOp = (event: any) => {
-    AddRemoveIngredientsPanel.value.toggle(event);
-}
 
 </script>
 
@@ -101,8 +99,8 @@ const toggleOp = (event: any) => {
       </template>
     </template>
 
-    <Button @click="toggleOp($event)" label="Add/Remove Ingredients" />
-    <OverlayPanel ref="AddRemoveIngredientsPanel">
+    <Button @click="ingredientDialogVisible = true" label="Add/Remove Ingredients" />
+    <Dialog v-model:visible="ingredientDialogVisible" modal header="Add/Remove Ingredients" :style="{ width: '25rem' }">
       <div class="flex flex-column gap-3">
         <template v-for="ingredient in ingredients" :key="ingredient.name">
           <div class="flex flex-row gap-2">
@@ -111,7 +109,10 @@ const toggleOp = (event: any) => {
           </div>
         </template>
       </div>
-    </OverlayPanel>
+      <div class="flex justify-content-end gap-2">
+              <Button type="button" label="Save" @click="ingredientDialogVisible = false"></Button>
+          </div>
+    </Dialog>
 
   </div>
   </Panel>
