@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CalculatorView from '../views/CalculatorView.vue'
-import HelloWorldView from '../views/HelloWorldView.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -9,11 +8,6 @@ const router = createRouter({
             path: '/',
             name: 'CalculatorView',
             component: CalculatorView
-        },
-        {
-            path: '/hello',
-            name: 'HelloWorldView',
-            component: HelloWorldView
         }
     ]
 })
