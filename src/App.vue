@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import NavBar from './components/Nav.vue'
+
 </script>
 
 <template>
-  <h1>Dough Ratio</h1>
-  <RouterView />
+  <nav class="absolute top-0 min-w-full">
+    <NavBar />
+  </nav>
+  <div id="content" class="flex flex-column align-items-center justify-content-center gap-1 p-1 min-h-screen m-auto">
+    <RouterView />
+  </div>
 </template>
 
 <style>
@@ -15,24 +21,15 @@ import { RouterView } from 'vue-router'
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
-}
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
 }
 </style>

@@ -4,7 +4,8 @@
 ✔ Convert HTML rendering to be dynamically generated @done(24-02-22 23:11)
 ✔ Come up with way to dynamically do calculations @done(24-02-22 23:11)
 ☐ Add information about the current ingredients selected at the bottom of the page or make it a collapsible section
-☐ Do calculations after every keystroke @started(24-02-22 23:14)
+☐ Fix responsiveness of calculator on smaller screens
+☐ Do calculations after every keystroke
 ☐ Add cups equivalent pill labels above the gram inputs
 ☐ Add ability to add custom ingredients
 ☐ Add ability to save custom ingredients
@@ -13,6 +14,7 @@
 
 === Recipe Book ===
 ☐ Add SSO so you can create an account and save your recipes
+☐ Select recipes and have it load into calculator
 ☐ Create a recipe book page
 ☐ Add ability to save custom dough ratios and provide links to recipes associated with ratios
 

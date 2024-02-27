@@ -64,8 +64,8 @@ const calculatePercentage = (weight: number) => {
 </script>
 
 <template>
-  <Panel>
-    <div class="flex flex-column gap-3">
+  <Panel class="max-w-full">
+    <div class="flex w-full flex-column gap-3">
       <label for="flour" class="font-bold block"> Flour </label>
       <div id="flour">
         <InputNumber class="w-full" v-model="flour.weight.value" inputId="flourWeight" :suffix="gramsSuffix" showButtons
@@ -82,7 +82,7 @@ const calculatePercentage = (weight: number) => {
       <template v-for="ingredient in ingredients" :key="ingredient.name">
         <template v-if="ingredient.checked.value">
           <label :for="ingredient.name" class="font-bold block"> {{ ingredient.name }} </label>
-          <div :id="ingredient.name" class="flex flex-row gap-3">
+          <div :id="ingredient.name" class="flex flex-row gap-3 ">
             <div>
               <InputNumber v-model="ingredient.percentage.value" :suffix="percentSuffix" :min="0" :use-grouping="false">
               </InputNumber>
