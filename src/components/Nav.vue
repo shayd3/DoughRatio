@@ -1,57 +1,34 @@
 <script setup lang="ts">
 import Menubar from 'primevue/menubar';
+import Login from './Login.vue'
+import { Icon } from '@iconify/vue';
 
 import { ref } from "vue";
 
 const items = ref([
     {
-        label: 'Home',
-        icon: 'pi pi-home'
-    },
-    {
-        label: 'Features',
-        icon: 'pi pi-star'
-    },
-    {
-        label: 'Projects',
-        icon: 'pi pi-search',
-        items: [
-            {
-                label: 'Components',
-                icon: 'pi pi-bolt'
-            },
-            {
-                label: 'Blocks',
-                icon: 'pi pi-server'
-            },
-            {
-                label: 'UI Kit',
-                icon: 'pi pi-pencil'
-            },
-            {
-                label: 'Templates',
-                icon: 'pi pi-palette',
-                items: [
-                    {
-                        label: 'Apollo',
-                        icon: 'pi pi-palette'
-                    },
-                    {
-                        label: 'Ultima',
-                        icon: 'pi pi-palette'
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        label: 'Contact',
-        icon: 'pi pi-envelope'
+        label: 'Calculator',
+       icon: 'mdi:calculator'
     }
 ]);
 
 </script>
 
 <template>
-    <Menubar :model="items" class="border-noround border-50"/>
+    <Menubar :model="items" class="border-noround border-50">
+        <template #item="{ item, props, hasSubmenu, root }">
+            <a class="flex align-items-center" v-bind="props.action">
+                <Icon :icon="item.icon || ''" />
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
+        </template>
+        <template #end>
+            <a class="flex align-items-center p-menuitem p-menuitem-content p-menuitem-link">
+                <!-- <Icon icon="material-symbols:login"/>
+                <span class="ml-2">Login</span> -->
+                <Login />
+            </a>
+        </template>
+
+    </Menubar>
 </template>

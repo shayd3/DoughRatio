@@ -13,8 +13,18 @@
 ☐ Add ability to save custom dough ratios
 
 === Recipe Book ===
-☐ Add SSO so you can create an account and save your recipes
+☐ Add SSO so you can create an account and save your recipes @started(24-03-19 22:24)
 ☐ Select recipes and have it load into calculator
 ☐ Create a recipe book page
 ☐ Add ability to save custom dough ratios and provide links to recipes associated with ratios
 
+
+=== Authentication/Authorization ===
+Video for reference: https://www.youtube.com/watch?v=xceR7mrrXsA
+☐ Add sign in/sign up page/dialog
+☐ Add ability to sign in with Google
+☐ Add ability to sign in with Username/Password
+☐ Add ability to sign out (Changes sign-in button to sign-out)
+☐ Add error handling
+    ☐ Bad Username/Password or user not found
+    ☐ User disabled
