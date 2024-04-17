@@ -16,19 +16,14 @@ const items = ref([
 
 <template>
     <Menubar :model="items" class="border-noround border-50">
-        <template #item="{ item, props, hasSubmenu, root }">
+        <template #item="{ item, props }">
             <a class="flex align-items-center" v-bind="props.action">
                 <Icon :icon="item.icon || ''" />
                 <span class="ml-2">{{ item.label }}</span>
             </a>
         </template>
         <template #end>
-            <a class="flex align-items-center p-menuitem p-menuitem-content p-menuitem-link">
-                <!-- <Icon icon="material-symbols:login"/>
-                <span class="ml-2">Login</span> -->
-                <Login />
-            </a>
+            <Login />
         </template>
-
     </Menubar>
 </template>
