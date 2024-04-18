@@ -3,7 +3,7 @@ import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from './stores/auth';
 
 
 // import './style.css'
