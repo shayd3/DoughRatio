@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useAuthStore } from '@/stores/auth';
+
 
 // import './style.css'
 import 'primevue/resources/themes/aura-dark-cyan/theme.css'
@@ -27,5 +30,12 @@ const app = createApp(App);
 app.use(createPinia())
 app.use(router)
 app.use(PrimeVue);
+
+const auth = getAuth();
+const authStore = useAuthStore();
+
+onAuthStateChanged(auth, user => {
+  authStore.setUser(user);
+});
 
 app.mount('#app')

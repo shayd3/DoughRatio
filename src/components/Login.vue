@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { GoogleAuthProvider, getAuth} from 'firebase/auth';
+import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 import { ref, nextTick } from 'vue';
 
+import { useAuthStore } from '@/stores/auth';
+
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+
+const authStore = useAuthStore();
 
 const visible = ref(false);
 
@@ -33,7 +37,13 @@ const openDialog = () => {
 </script>
 
 <template>
-    <Button icon="pi pi-user" label="Login" @click="openDialog" />
+    <!-- check if user is logged in -->
+    <div v-if="!authStore.getUser()">
+        <Button icon="pi pi-user" label="Login" @click="openDialog" />
+    </div>
+    <div v-else>
+        <Button icon="pi pi-user" label="Logout" @click="" />
+    </div>
 
     <Dialog
             v-model:visible="visible"
