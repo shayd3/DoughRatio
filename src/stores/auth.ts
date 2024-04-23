@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null)
@@ -12,5 +14,16 @@ export const useAuthStore = defineStore('auth', () => {
       return user.value
     }
 
-    return { user, setUser, getUser }
+    const auth = getAuth();
+    onAuthStateChanged(auth, user => {
+      setUser(user);
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        setUser(null);
+      });
+    }
+
+    return { user, setUser, getUser, logout }
 })

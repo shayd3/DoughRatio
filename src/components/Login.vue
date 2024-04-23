@@ -16,6 +16,7 @@ const visible = ref(false);
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
+    signInFlow: 'popup',
     signInOptions: [
         GoogleAuthProvider.PROVIDER_ID
     ],
@@ -42,7 +43,7 @@ const openDialog = () => {
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Button icon="pi pi-user" label="Logout" @click="" />
+        <Button icon="pi pi-user" label="Logout" @click="authStore.logout()" />
     </div>
 
     <Dialog
