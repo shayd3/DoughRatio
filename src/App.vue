@@ -7,7 +7,7 @@ import NavBar from './components/Nav.vue'
   <nav class="absolute top-0 min-w-full">
     <NavBar />
   </nav>
-  <div id="content" class="flex flex-column align-items-center justify-content-center gap-1 p-1 min-h-screen m-auto">
+  <div id="content" class="flex flex-column align-items-center justify-content-center min-h-screen mx-3">
     <RouterView />
   </div>
 </template>
@@ -27,7 +27,7 @@ import NavBar from './components/Nav.vue'
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+html,body {
   margin: 0;
   min-height: 100vh;
 }
