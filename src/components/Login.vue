@@ -20,13 +20,18 @@ const visible = ref(false);
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
-    signInSuccessWithAuthResult: function (authResult: any, redirectUrl: string) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed in!', life: 3000});
-
-        return true;
+    callbacks: {
+        signInSuccessWithAuthResult: function(authResult: any) {
+            console.log(authResult)
+            let firstName = authResult.user.displayName.split(' ')[0];
+            toast.add({severity:'success', summary: 'Success', detail: `Sign in successful! Hello, ${firstName}`, life: 3000});
+            visible.value = false;
+            return false;
+        },
+        signInFailure: function(error: any) {
+            toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+            return false;
+        }
     },
     signInFlow: 'popup',
     signInOptions: [
@@ -48,8 +53,11 @@ const openDialog = () => {
 }
 
 const logout = () => {
-    authStore.logout();
-    toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
+    authStore.logout().then(() => {
+        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
+    }).catch((error) => {
+        toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+    });
 }
 
 </script>
