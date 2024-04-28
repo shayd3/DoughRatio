@@ -19,9 +19,13 @@ export const useAuthStore = defineStore('auth', () => {
       setUser(user);
     });
 
-    function logout() {
-      auth.signOut().then(() => {
-        setUser(null);
+    function logout(): Promise<boolean> {
+      return new Promise ((resolve, reject) => {
+        auth.signOut().then(() => {
+          resolve(true);
+        }).catch((error) => {
+          reject(error);
+        });
       });
     }
 

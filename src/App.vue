@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import NavBar from './components/Nav.vue'
+import Toast from 'primevue/toast';
+
 </script>
 
 <template>
@@ -10,6 +12,7 @@ import NavBar from './components/Nav.vue'
   <div id="content" class="flex flex-column align-items-center justify-content-center min-h-screen mx-3">
     <RouterView />
   </div>
+  <Toast position="bottom-center"/>
 </template>
 
 <style>

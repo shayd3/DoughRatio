@@ -6,16 +6,33 @@ import { ref, nextTick } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
 
+
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import { useToast } from 'primevue/usetoast';
+
 
 const authStore = useAuthStore();
+const toast = useToast();
 
 const visible = ref(false);
 
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
+    callbacks: {
+        signInSuccessWithAuthResult: function(authResult: any) {
+            console.log(authResult)
+            let firstName = authResult.user.displayName.split(' ')[0];
+            toast.add({severity:'success', summary: 'Success', detail: `Sign in successful! Hello, ${firstName}`, life: 3000});
+            visible.value = false;
+            return false;
+        },
+        signInFailure: function(error: any) {
+            toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+            return false;
+        }
+    },
     signInFlow: 'popup',
     signInOptions: [
         GoogleAuthProvider.PROVIDER_ID
@@ -35,6 +52,14 @@ const openDialog = () => {
     })
 }
 
+const logout = () => {
+    authStore.logout().then(() => {
+        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
+    }).catch((error) => {
+        toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+    });
+}
+
 </script>
 
 <template>
@@ -43,7 +68,7 @@ const openDialog = () => {
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Button icon="pi pi-user" label="Logout" @click="authStore.logout()" />
+        <Button icon="pi pi-user" label="Logout" @click="logout()" />
     </div>
 
     <Dialog
