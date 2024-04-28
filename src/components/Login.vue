@@ -30,7 +30,6 @@ var uiConfig = {
         },
         signInFailure: function(error: any) {
             toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
-            return false;
         }
     },
     signInFlow: 'popup',
