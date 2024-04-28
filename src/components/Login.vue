@@ -6,16 +6,28 @@ import { ref, nextTick } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
 
+
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import { useToast } from 'primevue/usetoast';
+
 
 const authStore = useAuthStore();
+const toast = useToast();
 
 const visible = ref(false);
 
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
+    signInSuccessWithAuthResult: function (authResult: any, redirectUrl: string) {
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed in!', life: 3000});
+
+        return true;
+    },
     signInFlow: 'popup',
     signInOptions: [
         GoogleAuthProvider.PROVIDER_ID
@@ -35,6 +47,11 @@ const openDialog = () => {
     })
 }
 
+const logout = () => {
+    authStore.logout();
+    toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
+}
+
 </script>
 
 <template>
@@ -43,7 +60,7 @@ const openDialog = () => {
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Button icon="pi pi-user" label="Logout" @click="authStore.logout()" />
+        <Button icon="pi pi-user" label="Logout" @click="logout()" />
     </div>
 
     <Dialog
