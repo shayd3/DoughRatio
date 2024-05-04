@@ -10,15 +10,29 @@ import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import TieredMenu from 'primevue/tieredmenu';
 import Avatar from 'primevue/avatar';
+import { useToast } from 'primevue/usetoast';
 
 const authStore = useAuthStore();
 
 const visible = ref(false);
+const toast = useToast();
 const menu = ref();
 
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
+    callbacks: {
+        signInSuccessWithAuthResult: function(authResult: any) {
+            console.log(authResult)
+            let firstName = authResult.user.displayName.split(' ')[0];
+            toast.add({severity:'success', summary: 'Success', detail: `Sign in successful! Hello, ${firstName}`, life: 3000});
+            visible.value = false;
+            return false;
+        },
+        signInFailure: function(error: any) {
+            toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+        }
+    },
     signInFlow: 'popup',
     signInOptions: [
         GoogleAuthProvider.PROVIDER_ID
@@ -36,6 +50,14 @@ const openDialog = () => {
     nextTick(() => {
         ui.start('#firebaseui-auth-container', uiConfig);
     })
+}
+
+const logout = () => {
+    authStore.logout().then(() => {
+        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
+    }).catch((error) => {
+        toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
+    });
 }
 
 const toggleLoginDropDown = (event: any) => {
@@ -61,7 +83,7 @@ const loginDropDownItems = [
         label: 'Logout',
         icon: 'pi pi-power-off',
         command: () => {
-            authStore.logout();
+            logout();
         }
     }
 ];
