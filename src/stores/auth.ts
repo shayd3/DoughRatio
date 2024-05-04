@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
 
 export const useAuthStore = defineStore('auth', () => {
-    const user = ref(null)
+    const user = ref<User | null>(null)
 
-    function setUser(newUser: any) {
+    function setUser(newUser: User | null) {
       user.value = newUser
     }
 
-    function getUser() {
+    function getUser(): User | null {
       return user.value
     }
 

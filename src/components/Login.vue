@@ -6,16 +6,17 @@ import { ref, nextTick } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
 
-
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
+import TieredMenu from 'primevue/tieredmenu';
+import Avatar from 'primevue/avatar';
 import { useToast } from 'primevue/usetoast';
 
-
 const authStore = useAuthStore();
-const toast = useToast();
 
 const visible = ref(false);
+const toast = useToast();
+const menu = ref();
 
 // FirebaseUI config.
 var uiConfig = {
@@ -59,6 +60,34 @@ const logout = () => {
     });
 }
 
+const toggleLoginDropDown = (event: any) => {
+    menu.value.toggle(event);
+};
+
+const loginDropDownItems = [
+    {
+        label: 'Profile',
+        icon: 'pi pi-user',
+        command: () => {
+            console.log('Profile');
+        }
+    },
+    {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+        command: () => {
+            console.log('Settings');
+        }
+    },
+    {
+        label: 'Logout',
+        icon: 'pi pi-power-off',
+        command: () => {
+            logout();
+        }
+    }
+];
+
 </script>
 
 <template>
@@ -67,7 +96,8 @@ const logout = () => {
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Button icon="pi pi-user" label="Logout" @click="logout()" />
+        <Avatar :image="authStore.getUser()?.photoURL ?? ''" @click="toggleLoginDropDown" shape="circle" size="normal" class="p-mr-2" />
+        <TieredMenu ref="menu" id="overlay_tmenu" :model="loginDropDownItems" class="mt-3" popup />
     </div>
 
     <Dialog
