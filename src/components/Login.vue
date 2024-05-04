@@ -6,32 +6,19 @@ import { ref, nextTick } from 'vue';
 
 import { useAuthStore } from '@/stores/auth';
 
-
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
-import { useToast } from 'primevue/usetoast';
-
+import TieredMenu from 'primevue/tieredmenu';
+import Avatar from 'primevue/avatar';
 
 const authStore = useAuthStore();
-const toast = useToast();
 
 const visible = ref(false);
+const menu = ref();
 
 // FirebaseUI config.
 var uiConfig = {
     signInSuccessUrl: '/',
-    callbacks: {
-        signInSuccessWithAuthResult: function(authResult: any) {
-            console.log(authResult)
-            let firstName = authResult.user.displayName.split(' ')[0];
-            toast.add({severity:'success', summary: 'Success', detail: `Sign in successful! Hello, ${firstName}`, life: 3000});
-            visible.value = false;
-            return false;
-        },
-        signInFailure: function(error: any) {
-            toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
-        }
-    },
     signInFlow: 'popup',
     signInOptions: [
         GoogleAuthProvider.PROVIDER_ID
@@ -51,13 +38,33 @@ const openDialog = () => {
     })
 }
 
-const logout = () => {
-    authStore.logout().then(() => {
-        toast.add({severity:'success', summary: 'Success', detail: 'You have successfully signed out!', life: 3000});
-    }).catch((error) => {
-        toast.add({severity:'error', summary: 'Error', detail: error.message, life: 3000});
-    });
-}
+const toggleLoginDropDown = (event: any) => {
+    menu.value.toggle(event);
+};
+
+const loginDropDownItems = [
+    {
+        label: 'Profile',
+        icon: 'pi pi-user',
+        command: () => {
+            console.log('Profile');
+        }
+    },
+    {
+        label: 'Settings',
+        icon: 'pi pi-cog',
+        command: () => {
+            console.log('Settings');
+        }
+    },
+    {
+        label: 'Logout',
+        icon: 'pi pi-power-off',
+        command: () => {
+            authStore.logout();
+        }
+    }
+];
 
 </script>
 
@@ -67,7 +74,8 @@ const logout = () => {
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Button icon="pi pi-user" label="Logout" @click="logout()" />
+        <Avatar :image="authStore.getUser()?.photoURL ?? ''" @click="toggleLoginDropDown" shape="circle" size="normal" class="p-mr-2" />
+        <TieredMenu ref="menu" id="overlay_tmenu" :model="loginDropDownItems" class="mt-3" popup />
     </div>
 
     <Dialog
