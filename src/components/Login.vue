@@ -66,20 +66,6 @@ const toggleLoginDropDown = (event: any) => {
 
 const loginDropDownItems = [
     {
-        label: 'Profile',
-        icon: 'pi pi-user',
-        command: () => {
-            console.log('Profile');
-        }
-    },
-    {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        command: () => {
-            console.log('Settings');
-        }
-    },
-    {
         label: 'Logout',
         icon: 'pi pi-power-off',
         command: () => {
