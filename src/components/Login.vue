@@ -66,20 +66,6 @@ const toggleLoginDropDown = (event: any) => {
 
 const loginDropDownItems = [
     {
-        label: 'Profile',
-        icon: 'pi pi-user',
-        command: () => {
-            console.log('Profile');
-        }
-    },
-    {
-        label: 'Settings',
-        icon: 'pi pi-cog',
-        command: () => {
-            console.log('Settings');
-        }
-    },
-    {
         label: 'Logout',
         icon: 'pi pi-power-off',
         command: () => {
@@ -96,7 +82,10 @@ const loginDropDownItems = [
         <Button icon="pi pi-user" label="Login" @click="openDialog" />
     </div>
     <div v-else>
-        <Avatar :image="authStore.getUser()?.photoURL ?? ''" @click="toggleLoginDropDown" shape="circle" size="normal" class="p-mr-2" />
+        <Button @click="toggleLoginDropDown">
+            <span class="mr-2">{{ authStore.getUser()?.displayName?.split(' ')[0] ?? '' }}</span>
+            <Avatar :image="authStore.getUser()?.photoURL ?? ''" shape="circle" size="normal" />
+        </Button>
         <TieredMenu ref="menu" id="overlay_tmenu" :model="loginDropDownItems" class="mt-3" popup />
     </div>
 
