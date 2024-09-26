@@ -6,7 +6,8 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 
 // import './style.css'
-import 'primevue/resources/themes/aura-dark-cyan/theme.css'
+// import 'primevue/resources/themes/aura-dark-cyan/theme.css'
+import Aura from '@primevue/themes/aura';
 import 'primeflex/primeflex.css'
 import 'primeicons/primeicons.css'
 
@@ -28,7 +29,17 @@ initializeApp(firebaseConfig)
 
 const app = createApp(App);
 app.use(router)
-app.use(PrimeVue);
+app.use(PrimeVue, {
+  theme: {
+    preset: Aura,
+    options: {
+      // change color to cyan and layout to dark
+      layoutMode: 'dark',
+      primary: '#42A5F5',
+      secondary: '#424242',
+    }
+  }
+});
 app.use(ToastService);
 app.use(createPinia())
 
