@@ -3,7 +3,7 @@
 ✔ Create dynamic items for dough ratio calculator @done(24-02-22 23:11)
 ✔ Convert HTML rendering to be dynamically generated @done(24-02-22 23:11)
 ✔ Come up with way to dynamically do calculations @done(24-02-22 23:11)
-☐ Add information about the current ingredients selected at the bottom of the page or make it a collapsible section
+☐ Add information about the current ingredients selected at the bottom of the page or make it a collapsible section @started(24-09-25 21:37)
 ☐ Fix responsiveness of calculator on smaller screens
 ☐ Do calculations after every keystroke
 ☐ Add cups equivalent pill labels above the gram inputs
