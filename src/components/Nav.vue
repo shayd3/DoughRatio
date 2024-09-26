@@ -15,7 +15,7 @@ const items = ref([
 </script>
 
 <template>
-    <Menubar :model="items" class="border-noround border-50">
+    <Menubar :model="items" class="border-noround border-dotted">
         <template #item="{ item, props }">
             <a class="flex align-items-center" v-bind="props.action">
                 <Icon :icon="item.icon || ''" />
