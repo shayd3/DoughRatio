@@ -61,6 +61,10 @@ const calculatePercentage = (weight: number) => {
   return (weight / flour.weight.value) * 100;
 }
 
+const totalDoughWeight = () => {
+  return ingredients.reduce((acc, ingredient) => acc + ingredient.weight.value, flour.weight.value)
+}
+
 </script>
 
 <template>
@@ -96,8 +100,10 @@ const calculatePercentage = (weight: number) => {
           </template>
         </template>
 
+        <div class="flex flex-row">
+          <Button icon="pi pi-plus-circle" class="w-full" type="button" label="Add/Remove Ingredients" @click="ingredientDialogVisible = true"  />
+        </div>
 
-        <Button @click="ingredientDialogVisible = true" label="Add/Remove Ingredients" />
         <Dialog v-model:visible="ingredientDialogVisible" modal header="Add/Remove Ingredients" :style="{ width: '25rem' }">
           <div class="flex flex-column gap-3">
             <template v-for="ingredient in ingredients" :key="ingredient.name">
@@ -116,4 +122,8 @@ const calculatePercentage = (weight: number) => {
       </div>
     </template>
   </Card>
+  <div id="dough-info">
+    <h3>Dough Weight</h3>
+    <p>The total dough weight based on percentages and weights provided is <b>{{ totalDoughWeight() }} g</b></p>
+  </div>
 </template>
