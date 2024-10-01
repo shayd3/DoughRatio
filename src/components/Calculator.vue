@@ -65,15 +65,17 @@ const calculatePercentage = (weight: number) => {
 }
 
 const totalDoughWeight = () => {
-  return ingredients.reduce((acc, ingredient) => acc + ingredient.weight.value, flour.weight.value)
+  return ingredients.reduce((accumulator, ingredient) => accumulator  + ingredient.weight.value, flour.weight.value)
 }
 
 const totalHydration = () => {
-  const totalWater = ingredientsWithLiquid.reduce((acc, ingredient) => acc + ingredient.weight.value, 0)
-  const totalLiquidSplit = ingredientsWithLiquidSplit.reduce((acc, ingredient) => acc + ingredient.weight.value, 0)
+  const totalLiquid = ingredientsWithLiquid.reduce((accumulator, ingredient) => accumulator + ingredient.weight.value, 0)
+  const totalLiquidSplit = ingredientsWithLiquidSplit.reduce((accumulator, ingredient) => accumulator + ingredient.weight.value, 0)
   const totalFlour = flour.weight.value
 
-  return ((totalWater + (totalLiquidSplit / 2)) / totalFlour) * 100
+  if (totalFlour === 0) return 0;
+
+  return ((totalLiquid + (totalLiquidSplit / 2)) / totalFlour) * 100
 }
 
 </script>
@@ -136,5 +138,9 @@ const totalHydration = () => {
   <div id="dough-info">
     <h3>Dough Weight</h3>
     <p>The total dough weight based on percentages and weights provided is <b>{{ totalDoughWeight() }} g</b></p>
+    <h3>Hydration</h3>
+    <p>The total hydration based on percentages and weights provided is <b>{{ totalHydration() }} %</b></p>
+    <pre>The following ingredients are assumed <code>1/2</code> water and <code>1/2</code> flour: {{ ingredientsWithLiquidSplit.map(ingredient => ingredient.name).join(", ") }}</pre>
+
   </div>
 </template>

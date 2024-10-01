@@ -6,10 +6,10 @@ import Toast from 'primevue/toast';
 </script>
 
 <template>
-  <nav class="absolute top-0 min-w-full">
+  <nav class=" fixed top-0 w-full">
     <NavBar />
   </nav>
-  <div id="content" class="flex flex-column align-items-center justify-content-center min-h-screen mx-3">
+  <div id="content" class="flex flex-column align-items-center justify-content-center min-h-screen mx-3 mt-4">
     <RouterView />
   </div>
   <Toast position="bottom-center"/>
@@ -33,5 +33,6 @@ import Toast from 'primevue/toast';
 html,body {
   margin: 0;
   min-height: 100vh;
+  padding: 0;
 }
 </style>
