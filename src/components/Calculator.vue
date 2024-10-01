@@ -18,16 +18,16 @@ const flour = {
 }
 
 const ingredients = [
-  { name: "Water", weight: ref(750), percentage: ref(75), checked: ref(true) },
+  { name: "Water", weight: ref(750), percentage: ref(75), isLiquid: ref(true), checked: ref(true) },
   { name: "Salt", weight: ref(20), percentage: ref(2), checked: ref(true) },
-  { name: "Leaven", weight: ref(200), percentage: ref(20), checked: ref(true) },
+  { name: "Leaven", weight: ref(200), percentage: ref(20), isLiquidSplit: ref(true), checked: ref(true) },
   { name: "Yeast", weight: ref(10), percentage: ref(1), checked: ref(true) },
   { name: "Butter", weight: ref(0), percentage: ref(0), checked: ref(false) },
-  { name: "Starter", weight: ref(0), percentage: ref(0), checked: ref(false) },
-  { name: "Poolish", weight: ref(0), percentage: ref(0), checked: ref(false) },
+  { name: "Starter", weight: ref(0), percentage: ref(0), isLiquidSplit: ref(true), checked: ref(false) },
+  { name: "Poolish", weight: ref(0), percentage: ref(0), isLiquidSplit: ref(true), checked: ref(false) },
   { name: "Malt", weight: ref(0), percentage: ref(0), checked: ref(false) },
   { name: "Sugar", weight: ref(0), percentage: ref(0), checked: ref(false) },
-  { name: "Milk", weight: ref(0), percentage: ref(0), checked: ref(false) },
+  { name: "Milk", weight: ref(0), percentage: ref(0), isLiquid: ref(true), checked: ref(false) },
   { name: "Eggs", weight: ref(0), percentage: ref(0), checked: ref(false) },
   { name: "Honey", weight: ref(0), percentage: ref(0), checked: ref(false) },
   { name: "Vanilla", weight: ref(0), percentage: ref(0), checked: ref(false) },
@@ -36,6 +36,9 @@ const ingredients = [
   { name: "Baking Soda", weight: ref(0), percentage: ref(0), checked: ref(false) },
   { name: "Oil", weight: ref(0), percentage: ref(0), checked: ref(false) }
 ].sort((a, b) => a.name.localeCompare(b.name))
+
+const ingredientsWithLiquid = ingredients.filter(ingredient => ingredient.isLiquid)
+const ingredientsWithLiquidSplit = ingredients.filter(ingredient => ingredient.isLiquidSplit)
 
 const percentWatchList = ingredients.map(ingredient => ingredient.percentage);
 percentWatchList.push(flour.weight)
@@ -59,6 +62,20 @@ const calculateWeight = (percentage: number) => {
 
 const calculatePercentage = (weight: number) => {
   return (weight / flour.weight.value) * 100;
+}
+
+const totalDoughWeight = () => {
+  return ingredients.reduce((accumulator, ingredient) => accumulator  + ingredient.weight.value, flour.weight.value)
+}
+
+const totalHydration = () => {
+  const totalLiquid = ingredientsWithLiquid.reduce((accumulator, ingredient) => accumulator + ingredient.weight.value, 0)
+  const totalLiquidSplit = ingredientsWithLiquidSplit.reduce((accumulator, ingredient) => accumulator + ingredient.weight.value, 0)
+  const totalFlour = flour.weight.value
+
+  if (totalFlour === 0) return 0;
+
+  return ((totalLiquid + (totalLiquidSplit / 2)) / totalFlour) * 100
 }
 
 </script>
@@ -96,8 +113,10 @@ const calculatePercentage = (weight: number) => {
           </template>
         </template>
 
+        <div class="flex flex-row">
+          <Button icon="pi pi-plus-circle" class="w-full" type="button" label="Add/Remove Ingredients" @click="ingredientDialogVisible = true"  />
+        </div>
 
-        <Button @click="ingredientDialogVisible = true" label="Add/Remove Ingredients" />
         <Dialog v-model:visible="ingredientDialogVisible" modal header="Add/Remove Ingredients" :style="{ width: '25rem' }">
           <div class="flex flex-column gap-3">
             <template v-for="ingredient in ingredients" :key="ingredient.name">
@@ -116,4 +135,12 @@ const calculatePercentage = (weight: number) => {
       </div>
     </template>
   </Card>
+  <div id="dough-info">
+    <h3>Dough Weight</h3>
+    <p>The total dough weight based on percentages and weights provided is <b>{{ totalDoughWeight() }} g</b></p>
+    <h3>Hydration</h3>
+    <p>The total hydration based on percentages and weights provided is <b>{{ totalHydration() }} %</b></p>
+    <pre>The following ingredients are assumed <code>1/2</code> water and <code>1/2</code> flour: {{ ingredientsWithLiquidSplit.map(ingredient => ingredient.name).join(", ") }}</pre>
+
+  </div>
 </template>
